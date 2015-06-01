@@ -3,7 +3,7 @@ from errors import ParseError
 import subprocess
 import pipes
 import logging
-logger = logging.getLogger('openstack.util')
+logger = logging.getLogger(__name__)
 
 
 def shell(cmd, capture=True):

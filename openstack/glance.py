@@ -5,7 +5,7 @@ from errors import TimeoutError
 import time
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def image_show(identifier):

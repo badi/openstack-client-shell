@@ -7,7 +7,7 @@ import uuid
 import time
 import socket
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def wait_for_property(identifier, property, wait=10, maxtries=10):
