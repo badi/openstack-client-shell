@@ -4,7 +4,7 @@ import os.path
 
 # IMPORTANT: use semantic versioning
 # http://semver.org
-VERSION = '0.1.9'
+VERSION = '0.1.10'
 
 NAME = 'openstack-client-shell'
 
