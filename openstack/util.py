@@ -3,7 +3,7 @@ from errors import ParseError
 import subprocess
 import pipes
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('openstack.util')
 
 
 def shell(cmd, capture=True):
@@ -12,6 +12,7 @@ def shell(cmd, capture=True):
     :param cmd: the command to run as a list of arguments
     :param capture: capture the output
     """
+    logger = logging.getLogger('openstack.util.shell')
     logger.debug('Got command {}'.format(cmd))
     logger.debug('Executing {}'.format(' '.join(map(pipes.quote, cmd))))
 
