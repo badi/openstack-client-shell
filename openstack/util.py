@@ -49,4 +49,4 @@ def openstack_parse_show(output, property):
             return val
 
     raise ParseError('Failed to parse {property} from:\n{output}'
-                     .format(property=property, output=output))
+                     .format(property=property, output='\n'.join(output)))
