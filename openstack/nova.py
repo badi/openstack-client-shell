@@ -95,11 +95,13 @@ def delete(identifier):
 def boot(image, name=None, keyname=None, flavor='m1.small'):
     logger.info('Booting {image} as {name} key {keyname} and flavor {flavor}'
                 .format(**locals()))
-    name = name or str(uuid.uuid4())
     cmd = ['nova', 'boot',
            '--image', image,
            '--flavor', flavor
-           ] + (['--key-name', keyname] if keyname else [])
+           ]\
+        + (['--key-name', keyname] if keyname else [])\
+        + [name or str(uuid.uuid4())]
+    
     output = shell(cmd, capture=True)
     id = openstack_parse_show(output, 'id')
     return id
