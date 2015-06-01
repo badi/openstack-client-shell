@@ -1,6 +1,7 @@
 from util import shell
 from util import openstack_parse_show
 from errors import TimeoutError
+from errors import ParseError
 
 import uuid
 import time
@@ -23,11 +24,12 @@ def wait_for_property(identifier, property, wait=10, maxtries=10):
 
     for attempt in xrange(maxtries):
         output = show(identifier)
-        value = openstack_parse_show(output, property)
-        if value:
-            return value
-        else:
+        try:
+            value = openstack_parse_show(output, property)
+        except ParseError:
             time.sleep(wait)
+        else:
+            return value
 
     raise TimeoutError('Waiting on {property} for instance {identifier}'
                        .format(property=property, identifier=identifier))
