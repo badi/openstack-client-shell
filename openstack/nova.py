@@ -46,7 +46,7 @@ def wait_for_sshd(address, port=22, wait=10, maxtries=10):
     :param maxtries: maximum number of attempts
     :returns: True if success
     """
-    logger.info('Waiting for SSHD on', address)
+    logger.info('Waiting for SSHD on {}'.format(address))
 
     s = socket.socket(socket.AF_INET)
     try:

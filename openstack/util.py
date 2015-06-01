@@ -12,8 +12,8 @@ def shell(cmd, capture=True):
     :param cmd: the command to run as a list of arguments
     :param capture: capture the output
     """
-    logger.debug('Got command', cmd)
-    logger.debug('Executing', ' '.join(map(pipes.quote, cmd)))
+    logger.debug('Got command {}'.format(cmd))
+    logger.debug('Executing {}'.format(' '.join(map(pipes.quote, cmd))))
 
     if capture:
         return subprocess.check_output(cmd)
