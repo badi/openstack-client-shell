@@ -3,6 +3,7 @@ from errors import ParseError
 import subprocess
 import pipes
 import logging
+logger = logging.getLogger()
 
 
 def shell(cmd, capture=True):
@@ -11,7 +12,6 @@ def shell(cmd, capture=True):
     :param cmd: the command to run as a list of arguments
     :param capture: capture the output
     """
-    logger = logging.getLogger('shell')
     logger.debug('Got command', cmd)
     logger.debug('Executing', ' '.join(map(pipes.quote, cmd)))
 

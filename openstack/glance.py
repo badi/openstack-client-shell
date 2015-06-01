@@ -5,7 +5,7 @@ from errors import TimeoutError
 import time
 
 import logging
-logger = logging.getLogger('glance')
+logger = logging.getLogger()
 
 
 def image_show(identifier):

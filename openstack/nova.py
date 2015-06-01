@@ -7,7 +7,7 @@ import uuid
 import time
 import socket
 import logging
-logger = logging.getLogger('nova')
+logger = logging.getLogger()
 
 
 def wait_for_property(identifier, property, wait=10, maxtries=10):
