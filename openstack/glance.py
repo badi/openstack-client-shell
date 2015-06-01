@@ -56,8 +56,8 @@ def wait_for_image_property(identifier, property, value,
     :param maxtries: maximum number of attempts
     :returns: True
     """
-    logger.debug('Waiting for {identifier} to be {property}={value}'
-                 .format(**locals()))
+    logger.info('Waiting for {identifier} to be {property}={value}'
+                .format(**locals()))
 
     for _ in xrange(maxtries):
         output = image_show(identifier)
