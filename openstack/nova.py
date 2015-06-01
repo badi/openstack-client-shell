@@ -94,7 +94,7 @@ def delete(identifier):
 
 def boot(image, name=None, keyname=None, flavor='m1.small'):
     logger.info('Booting {image} as {name} key {keyname} and flavor {flavor}'
-                .format(**locals))
+                .format(**locals()))
     name = name or str(uuid.uuid4())
     cmd = ['nova', 'boot',
            '--image', image,
@@ -115,7 +115,7 @@ def image_create(identifier, name):
     """
 
     logger.info('Creating snapshot of {identifier} as {name}'
-                .format(**locals))
+                .format(**locals()))
 
     cmd = ['nova', 'image-create', '--show', identifier, name]
     output = shell(cmd)

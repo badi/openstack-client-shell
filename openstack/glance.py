@@ -28,7 +28,7 @@ def image_create(path, name,
     :rtype: str
 
     """
-    logger.info('Creating image {name} from {path}'.format(**locals))
+    logger.info('Creating image {name} from {path}'.format(**locals()))
 
     cmd = ['glance', 'image-create',
            '--is-public', str(public),
@@ -76,7 +76,7 @@ def image_download(identifier, path):
     :param identifier: the identifier of the image
     :param path: path to download file
     """
-    logger.info('Downloading {identifier} to {path}'.format(**locals))
+    logger.info('Downloading {identifier} to {path}'.format(**locals()))
 
     wait_for_image_property(identifier, 'state', 'active')
 
