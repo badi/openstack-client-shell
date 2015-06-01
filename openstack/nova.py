@@ -19,7 +19,7 @@ def wait_for_property(identifier, property, wait=10, maxtries=10):
     :returns: the property value
     :rtype: string
     """
-    logger.info('Waiting for property {property}'.format(property))
+    logger.info('Waiting for property {}'.format(property))
 
     for attempt in xrange(maxtries):
         output = show(identifier)
