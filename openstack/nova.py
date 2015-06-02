@@ -109,6 +109,13 @@ def boot(image, name=None, keyname=None, flavor='m1.small'):
     return id
 
 
+def image_show(identifier):
+    """Show the details of an instance image.
+    """
+    cmd = ['nova', 'image-show', identifier]
+    return shell(cmd, capture=True)
+
+
 def image_create(identifier, name):
     """Create a snapshot of a running instance
 
