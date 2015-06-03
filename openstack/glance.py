@@ -58,7 +58,7 @@ def wait_for_image_property(identifier, property, cmp_func,
     :param maxtries: maximum number of attempts
     :returns: True
     """
-    logger.info('Waiting for {identifier} to be {property}={value}'
+    logger.info('Waiting for {identifier} to be {property} using {cmp_func}'
                 .format(**locals()))
 
     for _ in xrange(maxtries):
