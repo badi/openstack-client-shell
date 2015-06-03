@@ -1,6 +1,8 @@
 from util import shell
 from util import openstack_parse_show
 from errors import TimeoutError
+import operator
+from functools import partial
 
 import time
 
@@ -43,7 +45,7 @@ def image_create(path, name,
     return id
 
 
-def wait_for_image_property(identifier, property, value,
+def wait_for_image_property(identifier, property, cmp_func,
                             wait=20,
                             maxtries=10):
     """Wait for an image to have a given property.
@@ -51,7 +53,7 @@ def wait_for_image_property(identifier, property, value,
 
     :param identifier: the image identifier
     :param property: the name of the property
-    :param value: the desired value of the property
+    :param cmp_func: predicate function accepting current value of the property
     :param wait: time (in seconds) between polls
     :param maxtries: maximum number of attempts
     :returns: True
@@ -62,13 +64,13 @@ def wait_for_image_property(identifier, property, value,
     for _ in xrange(maxtries):
         output = image_show(identifier)
         current = openstack_parse_show(output, 'status')
-        if current == value:
+        if cmp_func(current):
             return True
         else:
             time.sleep(wait)
 
-    msg = 'Timeout while waiting for image {identifier} {property} == {value}'\
-          .format(identifier=identifier, property=property, value=value)
+    msg = 'Timeout while waiting for image {identifier} {property} using {fn}'\
+          .format(identifier=identifier, property=property, fn=cmp_func)
     logger.info(msg)
     raise TimeoutError(msg)
 
@@ -81,7 +83,8 @@ def image_download(identifier, path):
     """
     logger.info('Downloading {identifier} to {path}'.format(**locals()))
 
-    wait_for_image_property(identifier, 'state', 'active')
+    active = partial(operator.eq, 'active')
+    wait_for_image_property(identifier, 'state', active)
 
     cmd = ['glance', 'image-download',
            '--file', path,
