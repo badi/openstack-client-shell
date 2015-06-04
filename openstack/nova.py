@@ -71,9 +71,10 @@ def wait_for_sshd(address, port=22, wait=10, maxtries=10):
     raise TimeoutError(msg)
 
 
-def wait_for_machine(identifier, sshd=22):
-    address = wait_for_property(identifier, 'int-net network')
-    wait_for_sshd(address, port=sshd)
+def wait_for_machine(identifier, sshd=22, wait=10, maxtries=10):
+    address = wait_for_property(identifier, 'int-net network',
+                                wait=wait, maxtries=maxtries)
+    wait_for_sshd(address, port=sshd, wait=wait, maxtries=maxtries)
     return address
 
 
