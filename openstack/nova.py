@@ -53,7 +53,7 @@ def wait_for_sshd(address, port=22, wait=10, maxtries=10):
         for attempt in xrange(maxtries):
             try:
                 msg = '{attempt:>2} /{max:>3} Trying to connect to {address} on {port}'
-                logger.debug(msg.format(attempt=attempt,
+                logger.debug(msg.format(attempt=attempt+1,
                                         max=maxtries,
                                         address=address, port=port))
                 s.connect((address, port))
