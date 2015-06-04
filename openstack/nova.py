@@ -52,8 +52,10 @@ def wait_for_sshd(address, port=22, wait=10, maxtries=10):
     try:
         for attempt in xrange(maxtries):
             try:
-                logger.debug('Trying to connect to {address} on {port}'
-                             .format(address=address, port=port))
+                msg = '{attempt:>2} /{max:>3} Trying to connect to {address} on {port}'
+                logger.debug(msg.format(attempt=attempt,
+                                        max=maxtries,
+                                        address=address, port=port))
                 s.connect((address, port))
             except:
                 logger.debug('Could not connect, sleeping for {wait}s'
