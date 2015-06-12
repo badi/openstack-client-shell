@@ -1,4 +1,4 @@
-from util import shell
+from pxul.subprocess import run
 from util import openstack_parse_show
 from errors import TimeoutError
 import operator
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def image_show(identifier):
     cmd = ['glance', 'image-show', identifier]
-    return shell(cmd, capture=True)
+    return run(cmd, capture='both')
 
 
 def image_create(path, name,
@@ -39,7 +39,7 @@ def image_create(path, name,
            '--name', name,
            '--file', path
            ]
-    output = shell(cmd, capture=True)
+    output = run(cmd, capture='both').out
     id = openstack_parse_show(output, 'id')
     logger.info('Created image {}'.format(id))
     return id
@@ -90,7 +90,7 @@ def image_download(identifier, path):
            '--file', path,
            '--progress',
            identifier]
-    shell(cmd, capture=False)
+    run(cmd)
 
 
 def image_delete(identifier):
@@ -100,4 +100,4 @@ def image_delete(identifier):
     """
     logger.info('Deleting image {}'.format(identifier))
     cmd = ['glance', 'image-delete', identifier]
-    shell(cmd)
+    run(cmd)

@@ -1,4 +1,4 @@
-from util import shell
+from pxul.subprocess import run
 from util import openstack_parse_show
 from errors import TimeoutError
 from errors import ParseError
@@ -88,13 +88,13 @@ def show(identifier):
     :rtype: string
     """
     cmd = ['nova', 'show', identifier]
-    return shell(cmd)
+    return run(cmd, capture='both').out
 
 
 def delete(identifier):
     logger.info('Deleting instance {}'.format(identifier))
     cmd = ['nova', 'delete', identifier]
-    return shell(cmd)
+    return run(cmd, capture='both')
 
 
 def boot(image, name=None, keyname=None, flavor='m1.small'):
@@ -107,7 +107,7 @@ def boot(image, name=None, keyname=None, flavor='m1.small'):
         + (['--key-name', keyname] if keyname else [])\
         + [name or str(uuid.uuid4())]
     
-    output = shell(cmd, capture=True)
+    output = run(cmd, capture='both').out
     id = openstack_parse_show(output, 'id')
     return id
 
@@ -116,7 +116,7 @@ def image_show(identifier):
     """Show the details of an instance image.
     """
     cmd = ['nova', 'image-show', identifier]
-    return shell(cmd, capture=True)
+    return run(cmd, capture='both').out
 
 
 def image_create(identifier, name):
@@ -132,7 +132,7 @@ def image_create(identifier, name):
                 .format(**locals()))
 
     cmd = ['nova', 'image-create', '--show', identifier, name]
-    output = shell(cmd)
+    output = run(cmd, capture='both').out
     uuid = openstack_parse_show(output, 'id')
     logger.info('Created snapshot {uuid}'.format(uuid=uuid))
     return uuid

@@ -1,25 +1,7 @@
 from errors import ParseError
 
-import subprocess
-import pipes
 import logging
 logger = logging.getLogger(__name__)
-
-
-def shell(cmd, capture=True):
-    """Run a shell command
-
-    :param cmd: the command to run as a list of arguments
-    :param capture: capture the output
-    """
-    logger = logging.getLogger('openstack.util.shell')
-    logger.debug('Got command {}'.format(cmd))
-    logger.debug('Executing {}'.format(' '.join(map(pipes.quote, cmd))))
-
-    if capture:
-        return subprocess.check_output(cmd)
-    else:
-        return subprocess.check_call(cmd)
 
 
 def openstack_parse_show(output, property):
